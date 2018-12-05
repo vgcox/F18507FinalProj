@@ -300,6 +300,11 @@ def get_books():
             print("Thanks!")
 
 #interactive part to get what user wants to search for:
+
+def load_help_text():
+    with open('help.txt') as f:
+        return f.read()
+
 def interactive_prompt():
     # help_text = load_help_text()
     flag = True
@@ -318,7 +323,7 @@ def interactive_prompt():
         elif response == 'find books':
             get_books()
         elif response == 'help':
-            print(help_text)
+            load_help_text()
         else:
             print("Sorry, the command you entered could not be processed. Type 'help' to see valid commands.")
 interactive_prompt()

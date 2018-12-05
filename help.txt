@@ -1,0 +1,25 @@
+Commands available:
+
+object counts
+  -Will prompt you to enter cultures from which you would like to compare how many objects from each culture are in Harvard
+  Art Museum's collection.
+  -You may enter as many cultures as you like. Make sure that they are comma separated and the first letter is capitalized.
+
+gender comparison
+  -Will ask you to enter one (1) culture from which you would like to compare how many objects created by men and women from
+  that culture are represented in the Harvard Art Museum's collection.
+
+artists work periods
+  -Will ask you to enter one (1) culture. This will then return a pie chart showing how many artists from this culture were active
+  during different time periods.
+
+objects from artists
+  -Will ask you for an artist's name to return a table showing all of the objects in Harvard Art Museum's Collection created
+  by that artist.
+  -Please make sure to spell the artist's name correctly and to use proper capitalization formats.
+
+help
+  -Opens these instructions
+
+quit
+  -Exits the program
