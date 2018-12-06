@@ -170,8 +170,8 @@ def get_objects():
     cur = conn.cursor()
     flag = True
     while flag == True:
-        culture = input("Enter an artist's name to search for objects they created: ")
-        statement = '''SELECT Objects.Title, Objects.Date, Objects.Medium FROM People JOIN Objects ON People.Id = Objects.Artist WHERE People.Name="'''+culture+'''"'''
+        name = input("Enter an artist's name to search for objects they created: ")
+        statement = '''SELECT Objects.Title, Objects.Date, Objects.Medium FROM People JOIN Objects ON People.Id = Objects.Artist WHERE People.Name="'''+name+'''"'''
         cur.execute(statement)
         results = cur.fetchall()
         if len(results) > 0:

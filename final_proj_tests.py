@@ -126,18 +126,26 @@ class TestGenderBar(unittest.TestCase):
         self.assertEqual(female, 461)
         self.assertEqual(unknown, 4054)
 
+class TestObjectTable(unittest.TestCase):
 
-# class TestRegionSearch(unittest.TestCase):
-#
-#     def test_region_search(self):
-#         results = process_command('regions sources bars_sold top=5')
-#         self.assertEqual(results[0][0], 'Americas')
-#         self.assertEqual(results[3][1], 66)
-#         self.assertEqual(len(results), 4)
-#
-#         results = process_command('regions sellers ratings top=10')
-#         self.assertEqual(len(results), 5)
-#         self.assertEqual(results[0][0], 'Oceania')
-#         self.assertGreater(results[3][1], 3.0)
+    def test_object_table(self):
+        conn = sqlite3.connect(DBNAME)
+        cur = conn.cursor()
+
+        sql11 = '''SELECT Objects.Title, Objects.Date, Objects.Medium FROM People JOIN Objects ON People.Id = Objects.Artist WHERE People.Name="Ellsworth Kelly"'''
+        results11 = cur.execute(sql11)
+        results11_list = cur.fetchall()
+        titles = []
+        dates = []
+        mediums = []
+        for item in results11_list:
+            titles.append(item[0])
+            dates.append(item[1])
+            mediums.append(item[2])
+        self.assertEqual(titles[2], 'Untitled (green)')
+        self.assertEqual(len(dates), 31)
+        self.assertEqual(mediums[11], 'Graphite on cream wove paper')
+
+        conn.close()
 
 unittest.main()
