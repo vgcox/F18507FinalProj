@@ -24,9 +24,9 @@ def make_culture_bar():
             statement = '''SELECT Name, ObjectCount FROM Cultures WHERE Name="'''+cult+'''"'''
             cur.execute(statement)
             results = cur.fetchall()
-            if len(results) > 0:
-                for i in results:
-                    cult_counts.append(i)
+            for i in results:
+                cult_counts.append(i)
+        if len(cult_counts) > 0:
             x_ax = [str(i[0]) for i in cult_counts]
             y_ax = [i[1] for i in cult_counts]
             data = [go.Bar(
@@ -185,7 +185,7 @@ def get_objects():
             trace0 = go.Table(
                 columnorder = [1,2,3],
                 columnwidth = [80,80,80],
-                tite = "Objects created by {}".format(culture),
+                name = "Objects created by {}".format(name),
                 header = dict(
                 values = [['<b>Title</b>'],
                         ['<b>Date</b>'],
@@ -204,7 +204,7 @@ def get_objects():
 
             data = [trace0]
 
-            py.plot(data, filename = "Objects created by {}".format(culture))
+            py.plot(data, filename = "Objects created by {}".format(name))
             flag = False
         else:
             response = input("The artist you searched for returned no results. They are not represented in this museum or you need to check spelling. Would you like to try again (Yes/No)?")
@@ -307,10 +307,10 @@ def load_help_text():
         return f.read()
 
 def interactive_prompt():
-    # help_text = load_help_text()
+    help_text = load_help_text()
     flag = True
     while flag == True:
-        response = input('What kind of information would you like to see? ')
+        response = input('What kind of information would you like to see (Enter "help" for options)? ')
         if response == 'quit':
             flag = False
         elif response == 'object counts':
@@ -324,7 +324,7 @@ def interactive_prompt():
         elif response == 'find books':
             get_books()
         elif response == 'help':
-            load_help_text()
+            print(help_text)
         else:
             print("Sorry, the command you entered could not be processed. Type 'help' to see valid commands.")
 if __name__=="__main__":

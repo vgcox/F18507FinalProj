@@ -148,4 +148,29 @@ class TestObjectTable(unittest.TestCase):
 
         conn.close()
 
+class TestBookTable(unittest.TestCase):
+
+    def test_book_table(self):
+        conn = sqlite3.connect(DBNAME)
+        cur = conn.cursor()
+
+        sql12 = '''SELECT Title, Author, Link FROM Books WHERE Title LIKE "%sculpture%"
+        UNION SELECT Title, Author, Link FROM Books WHERE Description LIKE "%sculpture%"
+        UNION SELECT Title, Author, Link FROM Books WHERE Subtitle LIKE "%sculpture%"
+        UNION SELECT Title, Author, Link FROM Books WHERE Categories LIKE "%sculpture%"'''
+        results12 = cur.execute(sql12)
+        results12_list = cur.fetchall()
+        self.assertEqual(results12_list[0][1], 'Barry Bergdoll, Leah Dickerman, ')
+        self.assertEqual(len(results12_list), 5)
+
+        sql13 = '''SELECT Title, Author, Link FROM Books WHERE Title LIKE "%Winter%"
+        UNION SELECT Title, Author, Link FROM Books WHERE Description LIKE "%Winter%"
+        UNION SELECT Title, Author, Link FROM Books WHERE Subtitle LIKE "%Winter%"
+        UNION SELECT Title, Author, Link FROM Books WHERE Categories LIKE "%Winter%"'''
+        results13 = cur.execute(sql13)
+        results13_list = cur.fetchall()
+        self.assertEqual(len(results13_list), 0)
+
+        conn.close()
+
 unittest.main()
