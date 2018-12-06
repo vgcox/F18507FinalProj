@@ -106,7 +106,7 @@ def artists_from_culture():
             flag = False
         else:
             response = input("The culture you specified returned 0 results. Check spelling or try again with a different culture. Would you like to try again (Yes/No)?")
-            if response = "Yes":
+            if response == "Yes":
                 continue
             else:
                 flag = False
@@ -185,26 +185,27 @@ def get_objects():
             trace0 = go.Table(
                 columnorder = [1,2,3],
                 columnwidth = [80,80,80],
+                tite = "Objects created by {}".format(culture),
                 header = dict(
                 values = [['<b>Title</b>'],
-                          ['<b>Date</b>'],
-                          ['<b>Medium</b>']],
-                          line = dict(color = '#000000'),
-                          fill = dict(color = '#506784'),
-                          font = dict(color = 'white', size = 14),
-                          height = 40
-                          ),
+                        ['<b>Date</b>'],
+                        ['<b>Medium</b>']],
+                line = dict(color = '#000000'),
+                fill = dict(color = '#506784'),
+                font = dict(color = 'white', size = 14),
+                height = 40),
             cells = dict(
                 values = [titles, dates, mediums],
                 line = dict(color = '#6a6a6b'),
                 fill = dict(color = '#cfbedb'),
                 font = dict(color = '#000000', size = 12),
                 height = 30
-                ))
+            ))
 
             data = [trace0]
 
-            py.plot(data, filename = "Row and Column Size")
+            py.plot(data, filename = "Objects created by {}".format(culture))
+            flag = False
         else:
             response = input("The artist you searched for returned no results. They are not represented in this museum or you need to check spelling. Would you like to try again (Yes/No)?")
             if response == "Yes":
@@ -326,4 +327,5 @@ def interactive_prompt():
             load_help_text()
         else:
             print("Sorry, the command you entered could not be processed. Type 'help' to see valid commands.")
-interactive_prompt()
+if __name__=="__main__":
+    interactive_prompt()
