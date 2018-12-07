@@ -32,18 +32,21 @@ def make_culture_bar():
             data = [go.Bar(
                 x=x_ax,
                 y=y_ax,
-                text=y_ax,
+                text=["{} objects".format(i[1]) for i in cult_counts],
+                hoverinfo = ['text'],
                 textposition = 'auto',
+                textfont = dict(color = 'black', size = 24),
                 marker=dict(
-                    color='rgb(158,202,225)',
+                    color='rgb(221, 190, 51)',
                     line=dict(
-                        color='rgb(8,48,107)',
-                        width=1.5),
+                        color='rgb(86, 77, 36)',
+                        width=2.5),
                     ),
-                opacity=0.6
+                opacity=0.5
             )]
             layout = go.Layout(
-                title = 'Object Count per Culture - Harvard Art Museum',
+                title = '<b>Object Count per Culture - Harvard Art Museum</b>',
+                titlefont = dict(color = 'black', size = 28),
                 yaxis=dict(
                 range = [0, max(y_ax)]
                 )
