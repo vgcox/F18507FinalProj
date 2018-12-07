@@ -94,7 +94,7 @@ def artists_from_culture():
                         counts[x] += 1
             labels = list(counts.keys())
             values = list(counts.values())
-            colors = ['#FEBFB3', '#E1396C', '#96D38C', '#D0F9B1']
+            colors = ['#ed5555', '#ed9c2a', '#f2e44d', '#81fc6f', '#6fddfc', '#6f88fc', '#b37cff']
 
             trace = go.Pie(labels=labels, values=values,
                            hoverinfo='label+value', textinfo='percent',
@@ -132,26 +132,30 @@ def gender_bar():
                     female += 1
                 else:
                     unknown += 1
-            x_ax = ['male', 'female']
+            x_ax = ['Male', 'Female']
             y_ax = [male, female]
             data = [go.Bar(
                 x=x_ax,
                 y=y_ax,
-                text=y_ax,
+                text=["<b>{} male artists</b>".format(y_ax[0]), "<b>{} female artists</b>".format(y_ax[1])],
                 textposition = 'auto',
                 hoverinfo = 'x',
+                textfont = dict(color = 'black', size = 24),
                 marker=dict(
-                    color='rgb(158,202,225)',
+                    color='rgb(180, 133, 234)',
                     line=dict(
-                        color='rgb(8,48,107)',
-                        width=1.5),
+                        color='rgb(51, 5, 104)',
+                        width=3.0)
                     ),
-                opacity=0.6
+                opacity=0.5
             )]
             layout = go.Layout(
-                title = 'Gender Comparison for Artists from Given Culture<br>(Number of artists where gender is not recorded is '+str(unknown)+')',
+                title = '<b>Gender Comparison for Artists from Given Culture<br>(Number of artists where gender is not recorded is '+str(unknown)+')</b>',
+                titlefont = dict(color = 'black', size = 28),
                 yaxis=dict(
                 range = [0, max(y_ax)]
+                ),
+                xaxis = dict(
                 )
             )
 
@@ -192,19 +196,27 @@ def get_objects():
                         ['<b>Medium</b>']],
                 line = dict(color = '#000000'),
                 fill = dict(color = '#506784'),
-                font = dict(color = 'white', size = 14),
+                font = dict(color = 'white', size = 20),
                 height = 40),
             cells = dict(
                 values = [titles, dates, mediums],
                 line = dict(color = '#6a6a6b'),
                 fill = dict(color = '#cfbedb'),
-                font = dict(color = '#000000', size = 12),
+                font = dict(color = '#000000', size = 18),
                 height = 30
             ))
+            layout = dict(
+                width=950,
+                height=800,
+                autosize=True,
+                title='Objects created by {}'.format(name),
+                margin = dict(t=100),
+                font = dict(color = 'black', size = 20),
+                )
 
             data = [trace0]
-
-            py.plot(data, filename = "Objects created by {}".format(name))
+            fig = go.Figure(data=data, layout=layout)
+            py.plot(fig, filename = "artist-objects")
             flag = False
         else:
             response = input("The artist you searched for returned no results. They are not represented in this museum or you need to check spelling. Would you like to try again (Yes/No)?")
@@ -241,20 +253,27 @@ def get_books():
                       ['<b>Find the book here:</b>']],
                       line = dict(color = '#000000'),
                       fill = dict(color = '#506784'),
-                      font = dict(color = 'white', size = 14),
+                      font = dict(color = 'white', size = 20),
                       height = 40
                       ),
         cells = dict(
             values = [titles, authors, links],
             line = dict(color = '#6a6a6b'),
             fill = dict(color = '#cfbedb'),
-            font = dict(color = '#000000', size = 12),
+            font = dict(color = '#000000', size = 18),
             height = 30
             ))
+        layout = dict(
+            width=950,
+            height=800,
+            autosize=True,
+            title='Books about {}'.format(books_search),
+            margin = dict(t=100),
+            )
 
         data = [trace0]
-
-        py.plot(data, filename = "Books Search Results")
+        fig = go.Figure(data=data, layout=layout)
+        py.plot(fig, filename = "Books Search Results")
     else:
         response = input("Sorry, we found no books in our database matching your search. Would you like to search the broader web? (Enter Yes/No): ")
         if response == 'Yes':
