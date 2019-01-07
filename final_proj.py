@@ -98,14 +98,22 @@ def artists_from_culture():
             labels = list(counts.keys())
             values = list(counts.values())
             colors = ['#ed5555', '#ed9c2a', '#f2e44d', '#81fc6f', '#6fddfc', '#6f88fc', '#b37cff']
-
-            trace = go.Pie(labels=labels, values=values,
-                           hoverinfo='label+value', textinfo='percent',
-                           textfont=dict(size=20),
-                           marker=dict(colors=colors,
-                                       line=dict(color='#000000', width=2)))
-
-            py.plot([trace], filename='styled_pie_chart')
+            trace0 = go.Scatter(
+                x = labels,
+                y = values,
+                mode = 'lines+markers',
+                name = 'Works Created',
+                line = dict(
+                    color = ('rgb(205, 12, 24)'),
+                    width = 4)
+                )
+            layout = dict(title = 'Number of Works Created Across Time by {} Artists'.format(desired_cult),
+                titlefont = dict(color = 'black', size = 28),
+                xaxis = dict(title = 'Time Period'),
+                yaxis = dict(title = 'Number of Works Created'))
+            data = [trace0]
+            fig = dict(data=data, layout=layout)
+            py.plot(fig, filename='styled-line')
             flag = False
         else:
             response = input("The culture you specified returned 0 results. Check spelling or try again with a different culture. Would you like to try again (Yes/No)?")
